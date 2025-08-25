@@ -1,0 +1,116 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get many bases",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many bases": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-08-19T14:34:56.294Z",
+  "id": "AGURmPWpmIrkKIvO",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Credenciales",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "55d614d7-4f90-46e4-9faf-4237712e30e4",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "base",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        304,
+        -112
+      ],
+      "id": "5f0051ee-e4b3-4d75-8301-15fabed430ac",
+      "name": "Get many bases",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "UbNypitsK7qZUYW1",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Hola, saluda."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        240,
+        144
+      ],
+      "id": "922eb9e6-9ecb-46ee-b219-aa49b73935ed",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "D9QGjQ5LR90f1yro",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-19T14:34:56.297Z",
+      "updatedAt": "2025-08-19T14:34:56.297Z",
+      "role": "workflow:owner",
+      "workflowId": "AGURmPWpmIrkKIvO",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-19T19:02:44.000Z",
+  "versionId": "18aa561c-b655-4049-b353-a40b7a3bd276"
+}
