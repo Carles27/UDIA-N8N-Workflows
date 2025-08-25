@@ -1,0 +1,469 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Getimage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Date & Time1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Date & Time2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Date & Time3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time1": {
+      "main": [
+        []
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Rename Keys",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rename Keys": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Getimage": {
+      "main": [
+        []
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Compression",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-20T12:45:23.460Z",
+  "id": "HfmuSTQjBBcTTczC",
+  "isArchived": false,
+  "meta": null,
+  "name": "Transformacion de datos",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://es.wired.com/feed/rss",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        -64
+      ],
+      "id": "83856cfc-6ec7-4f80-85c7-41df0be605bd",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        32,
+        -64
+      ],
+      "id": "e82537d7-9c07-4002-b6c6-095d995cdcf3",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $json.isoDate }}",
+        "timeUnit": "years",
+        "duration": 10,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        480,
+        -704
+      ],
+      "id": "1e61a334-ad61-4c48-a292-5af4ccc57f51",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "operation": "extractDate",
+        "date": "={{ $json.isoDate }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        480,
+        -880
+      ],
+      "id": "652928a9-54c7-4910-8bd3-eacd47011241",
+      "name": "Date & Time1"
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.isoDate }}",
+        "format": "yyyy-MM-dd",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        480,
+        -560
+      ],
+      "id": "de2f5b29-1434-44fa-9c5d-78a7e7354cc9",
+      "name": "Date & Time2"
+    },
+    {
+      "parameters": {
+        "operation": "subtractFromDate",
+        "magnitude": "={{ $json.isoDate }}",
+        "timeUnit": "years",
+        "duration": 15,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        480,
+        -384
+      ],
+      "id": "ead94dcf-d6b2-4ff1-ab31-6294bd9ae124",
+      "name": "Date & Time3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1eba7f72-1c6a-405c-8d61-9499014fa339",
+              "leftValue": "={{ $json.creator }}",
+              "rightValue": "González",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        -224
+      ],
+      "id": "05014358-2586-4d04-b722-d49cd6849f79",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "maxItems": 5,
+        "keep": "lastItems"
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -64
+      ],
+      "id": "03f27621-98e5-4bc3-9f19-79fb98fa0630",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "link",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        480,
+        112
+      ],
+      "id": "e7a51d2d-f69f-4669-a699-256e340519b5",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "link"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        688,
+        112
+      ],
+      "id": "491c0ee6-7fdf-4a21-8a19-5ac9c1393801",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        480,
+        304
+      ],
+      "id": "4bba0a00-a8e0-489b-b325-1c276875d276",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "url": "https://es.wired.com/feed/negocios/rss",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        272
+      ],
+      "id": "b2886ea9-8375-4b0f-9f41-7f8113d28938",
+      "name": "RSS Read1"
+    },
+    {
+      "parameters": {
+        "keys": {
+          "key": [
+            {
+              "currentKey": "creator",
+              "newKey": "medio"
+            },
+            {
+              "currentKey": "title",
+              "newKey": "titulo"
+            }
+          ]
+        },
+        "additionalOptions": {}
+      },
+      "type": "n8n-nodes-base.renameKeys",
+      "typeVersion": 1,
+      "position": [
+        688,
+        304
+      ],
+      "id": "96000172-a3a9-4a54-ab51-8e4e2d0b1af3",
+      "name": "Rename Keys"
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "pubDate",
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        896,
+        304
+      ],
+      "id": "688e2ae9-ac66-4848-aa64-230ed48271cf",
+      "name": "Sort"
+    },
+    {
+      "parameters": {
+        "url": "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -32,
+        576
+      ],
+      "id": "0ba21d9d-3057-426a-a278-708c277d285c",
+      "name": "Getimage"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        496,
+        544
+      ],
+      "id": "65201c73-4cb6-420f-b33a-3718ea096a18",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "compress",
+        "fileName": "=data_rss_{{ $runIndex }}.zip"
+      },
+      "type": "n8n-nodes-base.compression",
+      "typeVersion": 1.1,
+      "position": [
+        704,
+        544
+      ],
+      "id": "b07f2ff0-2843-4242-8a6a-44b4c2eb0547",
+      "name": "Compression"
+    },
+    {
+      "parameters": {
+        "binaryData": true
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        768,
+        688
+      ],
+      "id": "6bafd109-ce82-440e-9be7-7d47f3fb6a91",
+      "name": "Crypto"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-20T12:45:23.470Z",
+      "updatedAt": "2025-08-20T12:45:23.470Z",
+      "role": "workflow:owner",
+      "workflowId": "HfmuSTQjBBcTTczC",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-20T15:43:50.000Z",
+  "versionId": "e6104372-d5ff-4530-898b-821644555669"
+}
