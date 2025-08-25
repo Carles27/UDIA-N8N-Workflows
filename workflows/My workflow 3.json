@@ -1,0 +1,144 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set • Target & Lang",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set • Target & Lang": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request • Send Template",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request • Send Template": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request • Send Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-25T20:35:29.946Z",
+  "id": "e3ROprFwDZmQtUGD",
+  "isArchived": true,
+  "meta": null,
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "6f09ed01-2cd9-48ee-83ba-a865c1f8200a",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "to",
+              "value": "34XXXXXXXXX"
+            },
+            {
+              "name": "language",
+              "value": "en_US"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2667ede2-057b-42b5-a32f-cdf439506e09",
+      "name": "Set • Target & Lang",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        64,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://graph.facebook.com/v22.0/808140595707637/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer EAAYW5Pz2BsMBPUXzN2Snd5T7WQDorlJHLHpwY0ba0lJ5LLhFeeIqmBnKfX76e8dkh98xvxkuKcSTkiJR9qbe1sPZCpmEOlnqG7drCHrZAdrnc0CZCBTak3GCDb71OjffZC3Fknd98cFxJ3NFeKVEU2i6OxcnyD7hv2xzxSO1IJAv03ZBpKUZCDjS7nZBKewqcb2wJRxfFwnp5CNNfmk2K8PPEUdZBVzr87D5tD3RaAZBPQKBktwZDZD"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"34651948106\",\n  \"type\": \"template\",\n  \"template\": {\n    \"name\": \"hello_world\",\n    \"language\": { \"code\": \"en_US\" }\n  }\n}\n",
+        "options": {}
+      },
+      "id": "a38c2dcb-4b9e-4f7b-95b5-d17bfd7a107a",
+      "name": "HTTP Request • Send Template",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        336,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://graph.facebook.com/v22.0/808140595707637/messages",
+        "options": {}
+      },
+      "id": "8232238b-af3c-4ffc-b99b-e6e3a1f1d3fd",
+      "name": "HTTP Request • Send Text",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        592,
+        -176
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-25T20:35:29.957Z",
+      "updatedAt": "2025-08-25T20:35:29.957Z",
+      "role": "workflow:owner",
+      "workflowId": "e3ROprFwDZmQtUGD",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-25T20:39:11.000Z",
+  "versionId": "9e475c00-b83b-431a-a380-ea20112527f0"
+}
