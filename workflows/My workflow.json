@@ -1,0 +1,165 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Variable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variable": {
+      "main": [
+        [
+          {
+            "node": "Exercise",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "TargetList",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-19T12:26:49.973Z",
+  "id": "umlr2ffO4VzcbGKx",
+  "isArchived": false,
+  "meta": null,
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c7e95e6e-7009-40c1-bcb8-5614755e7c92",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-rapidapi-host",
+              "value": "exercisedb.p.rapidapi.com"
+            },
+            {
+              "name": "x-rapidapi-key",
+              "value": "={{ $json.apikey }}"
+            },
+            {
+              "name": "limit",
+              "value": "={{ $json.limit }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        352,
+        -128
+      ],
+      "id": "8db84bfb-a626-4fdb-9700-28fccda5feca",
+      "name": "Exercise"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5e82ec58-ae71-4103-91ad-b8b4c9551814",
+              "name": "url",
+              "value": "https://exercisedb.p.rapidapi.com/exercises ",
+              "type": "string"
+            },
+            {
+              "id": "816772cb-ce03-4829-89f6-e95f521824a8",
+              "name": "limit",
+              "value": "2",
+              "type": "string"
+            },
+            {
+              "id": "efb1124c-4826-4ff3-8add-4c80894b95a6",
+              "name": "apikey",
+              "value": "c656469a19mshda548abbe2062b8p116595jsn0d863cb73d6b",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "208ff420-2681-489d-8701-1345b747181f",
+      "name": "Variable"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}/targetList ",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-rapidapi-host",
+              "value": "exercisedb.p.rapidapi.com"
+            },
+            {
+              "name": "x-rapidapi-key",
+              "value": "={{ $json.apikey }}"
+            },
+            {
+              "name": "limit",
+              "value": "={{ $json.limit }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        368,
+        64
+      ],
+      "id": "5c7622a3-2741-439d-8707-f7c5130a646c",
+      "name": "TargetList"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-19T12:26:49.976Z",
+      "updatedAt": "2025-08-19T12:26:49.976Z",
+      "role": "workflow:owner",
+      "workflowId": "umlr2ffO4VzcbGKx",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-19T12:46:17.000Z",
+  "versionId": "91188dea-1177-4d5f-9099-da93efee2e2b"
+}
