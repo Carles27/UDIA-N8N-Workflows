@@ -263,19 +263,6 @@
         352
       ],
       "webhookId": "4f2c335a-6c4a-446d-b5e5-bb3f82ca89f0"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1008,
-        400
-      ],
-      "id": "378aa596-6655-47a9-945c-6cb28810a925",
-      "name": "Code1"
     }
   ],
   "pinData": {},
@@ -294,6 +281,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-25T13:54:14.000Z",
-  "versionId": "c45dec3b-23a4-4f4f-ab0b-be360658986f"
+  "updatedAt": "2025-08-25T13:54:43.000Z",
+  "versionId": "d1785d8c-e2b5-4b60-8c18-d3ed6c4dd0ec"
 }
