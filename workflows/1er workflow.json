@@ -1,0 +1,43 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2025-08-18T17:35:37.873Z",
+  "id": "HruykMEFrRM68DCJ",
+  "isArchived": false,
+  "meta": null,
+  "name": "1er workflow",
+  "nodes": [],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Madrid",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-18T17:35:37.878Z",
+      "updatedAt": "2025-08-18T17:35:37.878Z",
+      "role": "workflow:owner",
+      "workflowId": "HruykMEFrRM68DCJ",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-18T17:35:35.661Z",
+      "updatedAt": "2025-08-18T17:35:35.661Z",
+      "id": "TgzrV80YpAstr5qd",
+      "name": "🔴desarrollo"
+    },
+    {
+      "createdAt": "2025-08-18T17:35:08.694Z",
+      "updatedAt": "2025-08-18T17:35:08.694Z",
+      "id": "sErMQRwG0EZwM6IF",
+      "name": "🧠udia"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-18T17:40:55.000Z",
+  "versionId": "7b31d288-c901-4da6-a32f-f550b3fb4d9b"
+}
