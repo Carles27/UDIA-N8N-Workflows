@@ -1,0 +1,234 @@
+{
+  "active": false,
+  "connections": {
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-22T13:31:00.396Z",
+  "id": "PZ632Yy1qpoIxLaH",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Creacion de RAG",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1ii_nm0l_RE5kVlsqLI1VaEL0Veo6fkSd",
+          "mode": "list",
+          "cachedResultName": "RAG_UDIA",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1ii_nm0l_RE5kVlsqLI1VaEL0Veo6fkSd"
+        },
+        "event": "fileCreated",
+        "options": {}
+      },
+      "id": "888f04ae-fcbc-4b5f-8944-9aaba8f1c395",
+      "name": "Google Drive Trigger",
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "mAlcy6FEcTatzSwQ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "id": "1108c2dd-91ac-4e5f-92f8-e6fe13d7d7fb",
+      "name": "Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        224,
+        0
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "mAlcy6FEcTatzSwQ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-small",
+        "options": {}
+      },
+      "id": "be51f744-d105-4713-820e-771a899aa43c",
+      "name": "Embeddings OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1,
+      "position": [
+        352,
+        176
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "D9QGjQ5LR90f1yro",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "file",
+                "value": "={{ $json.name }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "3b287f63-ba69-4df0-aba6-2cd058c6a41d",
+      "name": "Default Data Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        608,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "chunkSize": 500,
+        "chunkOverlap": 20,
+        "options": {}
+      },
+      "id": "9cbf0d0d-ca17-4569-ab8d-6d9fbbe1a9a0",
+      "name": "Recursive Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        624,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "ragudia2",
+          "mode": "list",
+          "cachedResultName": "ragudia2"
+        },
+        "options": {
+          "clearNamespace": false,
+          "pineconeNamespace": "udia_rag"
+        }
+      },
+      "id": "7d9f6c50-e1ad-49aa-8929-a3dd6dd4cc81",
+      "name": "Pinecone Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1,
+      "position": [
+        448,
+        0
+      ],
+      "credentials": {
+        "pineconeApi": {
+          "id": "TjQEKsi7Anfoclog",
+          "name": "PineconeApi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-22T13:31:00.398Z",
+      "updatedAt": "2025-08-22T13:31:00.398Z",
+      "role": "workflow:owner",
+      "workflowId": "PZ632Yy1qpoIxLaH",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-22T16:48:35.000Z",
+  "versionId": "44c80f2a-917b-42db-a2fe-24774efe8b22"
+}
