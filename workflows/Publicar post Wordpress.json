@@ -1,0 +1,194 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Creo un post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Descargo la imagen": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creo un post": {
+      "main": [
+        [
+          {
+            "node": "Descargo la imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Asigno imagen a post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-24T18:31:20.062Z",
+  "id": "IntsBaDlPAoml4er",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Publicar post Wordpress",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "238b22a3-d589-47be-8e8a-297b48d9bf31",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        192,
+        -48
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "https://udia.es/_next/image?url=%2Fassets%2Fudia-2.webp&w=96&q=75",
+        "options": {}
+      },
+      "id": "c352473a-a365-4dac-b277-3c629f86fe1b",
+      "name": "Descargo la imagen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        560,
+        -48
+      ]
+    },
+    {
+      "parameters": {
+        "title": "Udia Test Post",
+        "additionalFields": {
+          "content": "Contenido del post",
+          "status": "draft"
+        }
+      },
+      "id": "8beaa18b-984d-4504-ad7e-9837a2c5bfc4",
+      "name": "Creo un post",
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -48
+      ],
+      "credentials": {
+        "wordpressApi": {
+          "id": "xV8Kck8vYWAEIk8V",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://vayesa.com/wp-json/wp/v2/posts/{{ $('Creo un post').item.json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "featured_media",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dccc051d-c4d8-48cb-be66-45bf46f678f7",
+      "name": "Asigno imagen a post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        976,
+        -48
+      ],
+      "credentials": {
+        "wordpressApi": {
+          "id": "xV8Kck8vYWAEIk8V",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://carleshernandezgarcia.wordpress.com/wp-json/wp/v2/media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Disposition",
+              "value": "attachment; filename=udia-2.webp"
+            },
+            {
+              "name": "authorization",
+              "value": "Basic Y2FybGVzZ2FyY2lhNUBnbWFpbC5jb206bm1xdSB2d2ltIG4ybTcgNnFkbg=="
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        752,
+        -48
+      ],
+      "id": "6d6f29dd-ebde-4bb9-876a-6da6827d28d1",
+      "name": "HTTP Request",
+      "credentials": {
+        "wordpressApi": {
+          "id": "xV8Kck8vYWAEIk8V",
+          "name": "Wordpress account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-24T18:31:20.067Z",
+      "updatedAt": "2025-08-24T18:31:20.067Z",
+      "role": "workflow:owner",
+      "workflowId": "IntsBaDlPAoml4er",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-25T13:07:22.000Z",
+  "versionId": "f99a50e7-ca81-498f-9a90-5fd46bc28f21"
+}
