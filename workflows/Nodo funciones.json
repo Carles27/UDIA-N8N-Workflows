@@ -1,0 +1,113 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-08-20T15:44:04.063Z",
+  "id": "WS38qxv99wEXkBSh",
+  "isArchived": false,
+  "meta": null,
+  "name": "Nodo funciones",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a0041a88-fb33-444e-a7a7-31f8646348e1",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://www.techradar.com/rss",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0aef25d5-06a7-490b-877f-222fbe1c98a3",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Modo: \"Run Once for Each Item\"\n\nfunction extractFirstImg(html) {\n  if (typeof html !== 'string') return null;\n  // Captura el primer src de una etiqueta <img ...>\n  const match = html.match(/<img[^>]+src\\s*=\\s*[\"']([^\"']+)[\"']/i);\n  return match ? match[1] : null;\n}\n\nreturn items.map((item) => {\n  const data = item.json || {};\n  let image = null;\n\n  // 1) Intentar extraer del HTML (content:encoded, luego content)\n  const htmlCandidates = [data['content:encoded'], data.content].filter(Boolean);\n  for (const html of htmlCandidates) {\n    const src = extractFirstImg(html);\n    if (src) { image = src; break; }\n  }\n\n  // 2) Fallbacks comunes en RSS\n  if (!image && data.enclosure && data.enclosure.url) {\n    image = data.enclosure.url;\n  }\n  if (!image && data['media:content'] && data['media:content'].url) {\n    image = data['media:content'].url;\n  }\n\n  // 3) Añadir al objeto\n  item.json.image = image || null;\n\n  return item;\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        -144
+      ],
+      "id": "41fcc54f-6bf8-427b-9e56-49ea66fe73a0",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Modo: \"Run Once for Each Item\"\n\nfunction extractFirstImg(html) {\n  if (typeof html !== 'string') return null;\n  // Captura el primer src de una etiqueta <img ...>\n  const match = html.match(/<img[^>]+src\\s*=\\s*[\"']([^\"']+)[\"']/i);\n  return match ? match[1] : null;\n}\n\nreturn items.map((item) => {\n  const data = item.json || {};\n  let image = null;\n\n  // 1) Intentar extraer del HTML (content:encoded, luego content)\n  const htmlCandidates = [data['content:encoded'], data.content].filter(Boolean);\n  for (const html of htmlCandidates) {\n    const src = extractFirstImg(html);\n    if (src) { image = src; break; }\n  }\n\n  // 2) Fallbacks comunes en RSS\n  if (!image && data.enclosure && data.enclosure.url) {\n    image = data.enclosure.url;\n  }\n  if (!image && data['media:content'] && data['media:content'].url) {\n    image = data['media:content'].url;\n  }\n\n  // 3) Añadir al objeto\n  item.json.image = image || null;\n\n  // 4) Modificar el título si contiene \"mystery\"\n  if (data.title) {\n    item.json.title = data.title.replace(/mystery/gi, 'UDIA mystery');\n  }\n\n  return item;\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        96
+      ],
+      "id": "1c9b6297-dd54-44b9-87ea-a3c25852621a",
+      "name": "Code1"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-20T15:44:04.071Z",
+      "updatedAt": "2025-08-20T15:44:04.071Z",
+      "role": "workflow:owner",
+      "workflowId": "WS38qxv99wEXkBSh",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-20T16:23:01.000Z",
+  "versionId": "2e96b617-02e1-403f-8e07-67ca87d419ba"
+}
