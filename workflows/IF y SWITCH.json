@@ -1,0 +1,244 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-19T13:50:51.956Z",
+  "id": "afo5cbElDuNHiRSE",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "IF y SWITCH",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "60253097-5263-4168-9926-f9a458e7ea39",
+      "name": "When chat message received",
+      "webhookId": "5ac7f6d6-aab4-4bbb-a4ec-0e3e3252544a"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "949cdafd-f4b4-4a7d-8ff7-9405d0b92910",
+              "leftValue": "={{ $json.chatInput }}",
+              "rightValue": "Hola",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            },
+            {
+              "id": "8ee00de3-dbeb-401b-8693-da10d9a08cba",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        192,
+        -128
+      ],
+      "id": "5924951c-f029-41ed-be20-6440714bf898",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.chatInput }}",
+                    "rightValue": "Hola",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "ccf6459e-a28e-47fe-b26c-9ab2ebe262c6"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Saludo"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "7705d2fd-90dd-4b2f-ae48-c11acbfa3c1f",
+                    "leftValue": "={{ $json.chatInput }}",
+                    "rightValue": "Adios",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Despedida"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        272,
+        64
+      ],
+      "id": "7dcb3ea4-1d59-4c72-a7c4-05f88c7016bf",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "2039019402",
+        "text": "Hola como estas",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        640,
+        -64
+      ],
+      "id": "6012f8d9-dba6-4cf9-b769-31bc1730afd1",
+      "name": "Send a text message",
+      "webhookId": "1edfff86-dfa4-4850-98d9-f8ae94771e88",
+      "credentials": {
+        "telegramApi": {
+          "id": "KpgIDYXa6C5S59tM",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "2039019402",
+        "text": "Adiios",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        592,
+        112
+      ],
+      "id": "4a6a4687-6739-4209-83d6-886fed05d7ee",
+      "name": "Send a text message1",
+      "webhookId": "1edfff86-dfa4-4850-98d9-f8ae94771e88",
+      "credentials": {
+        "telegramApi": {
+          "id": "KpgIDYXa6C5S59tM",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-19T13:50:51.958Z",
+      "updatedAt": "2025-08-19T13:50:51.958Z",
+      "role": "workflow:owner",
+      "workflowId": "afo5cbElDuNHiRSE",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-19T14:13:47.000Z",
+  "versionId": "9bacabb8-8df5-4477-aaa5-3a73fec0f2d1"
+}
