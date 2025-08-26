@@ -1,0 +1,232 @@
+{
+  "active": false,
+  "connections": {
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Accedo al producto": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Accedo al producto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-26T16:42:47.385Z",
+  "id": "Hya7vNd2LFE37D14",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Nodo de extraccion de datos secundario ia",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -416,
+        160
+      ],
+      "id": "9fe2ea03-50eb-471f-989e-b04c3e738b55",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "url": "=https://mascotalandia.es/26--natura-diet-daily-food-12kg-pienso-para-perros-con-pollo-y-arroz.html",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -16,
+        -80
+      ],
+      "id": "a951bbbc-8a99-4893-b618-8ade98ba757c",
+      "name": "Test sin headers"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.loc }}",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36\",\n  \"Accept\": \"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\",\n  \"Accept-Language\": \"en-US,en;q=0.5\",\n  \"Connection\": \"keep-alive\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        160
+      ],
+      "id": "65ea3996-2542-4e3c-b463-6b29263961b2",
+      "name": "Accedo al producto"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "nombre",
+              "cssSelector": ".product_name"
+            },
+            {
+              "key": "marca",
+              "cssSelector": ".brand_centercolumn"
+            },
+            {
+              "key": "descripcion_corta",
+              "cssSelector": ".product-description"
+            },
+            {
+              "key": "descripcion_larga",
+              "cssSelector": ".info_content"
+            },
+            {
+              "key": "pvp",
+              "cssSelector": ".price_pvp"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        272,
+        48
+      ],
+      "id": "3fa7b1e9-2f3c-4082-9a2a-f425d874ad38",
+      "name": "Datos"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "  {\n    \"loc\": \"https://mascotalandia.es/26--natura-diet-daily-food-12kg-pienso-para-perros-con-pollo-y-arroz.html\",\n    \"image:image\": {\n      \"image:loc\": \"https://mascotalandia.es/38-large_default/natura-diet-daily-food-12kg-pienso-para-perros-con-pollo-y-arroz.jpg\"\n    }\n  }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -208,
+        160
+      ],
+      "id": "1c28989f-c8d9-4260-a16a-5ccaf79f0209",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "text": "=Extrae toda la información del producto que te envío en html.\nTu debes devolver nombre, marca, descripción corta, descripción larga y precio\n\n{{ $json.data }}\n",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "nombre",
+              "description": "nombre del producto",
+              "required": true
+            },
+            {
+              "name": "descripcion_corta",
+              "description": "descripcion corta del producto",
+              "required": true
+            },
+            {
+              "name": "descripcion_larga",
+              "description": "descripcion larga del producto",
+              "required": true
+            },
+            {
+              "name": "precio",
+              "description": "precio del producto"
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "Eres un experto extrayendo información de productos de códigos html."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1,
+      "position": [
+        304,
+        224
+      ],
+      "id": "f6320242-8b9c-4861-ba8e-069291a02e34",
+      "name": "Information Extractor"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-001",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        272,
+        384
+      ],
+      "id": "07ba00c1-d245-4ad3-a911-49bc318707ec",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "hdxquAk52VDmAJMv",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-26T16:42:47.392Z",
+      "updatedAt": "2025-08-26T16:42:47.392Z",
+      "role": "workflow:owner",
+      "workflowId": "Hya7vNd2LFE37D14",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-26T17:31:27.000Z",
+  "versionId": "7ef34d8d-dcae-4124-abbb-eb869e814ee4"
+}
