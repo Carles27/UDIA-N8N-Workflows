@@ -1,0 +1,223 @@
+{
+  "active": false,
+  "connections": {
+    "Listen": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to ElevenLabs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-26T18:33:36.853Z",
+  "id": "uxCDrMbey1SOXMLF",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Chatbot ElevenLabs",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.pregunta }}",
+        "options": {}
+      },
+      "id": "f8dc8b59-cf5f-4410-a523-8e2f1ec652fd",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        304,
+        0
+      ],
+      "typeVersion": 1.7
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "854f5ccf-5a03-4454-9104-ab5c46db10b0",
+      "name": "Respond to ElevenLabs",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [
+        720,
+        0
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "ea30cb2d-cfe7-426e-b135-5de908ccd3d5",
+      "name": "OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        192,
+        240
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "openAiApi": {
+          "id": "D9QGjQ5LR90f1yro",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "elevenlabs",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "3476d407-39a0-4c25-ac47-e7f19fa11878",
+      "name": "Listen",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "e9f611eb-a8dd-4520-8d24-9f36deaca528",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Listen').item.json.headers['x-forwarded-host'] }}"
+      },
+      "id": "29c710f8-8260-400a-84bb-b3dace29834c",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        352,
+        240
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3f0327d5-cd8f-4dd0-b408-b8be2e4f2a0d",
+      "name": "Embeddings OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "position": [
+        512,
+        368
+      ],
+      "typeVersion": 1.1,
+      "credentials": {
+        "openAiApi": {
+          "id": "D9QGjQ5LR90f1yro",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "udia_informacion",
+        "toolDescription": "Contienes información sobre lo que ofrece UDIA",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "ragudia2",
+          "mode": "list",
+          "cachedResultName": "ragudia2"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1,
+      "position": [
+        528,
+        208
+      ],
+      "id": "8e55ecac-848f-4704-84d7-5be530104e34",
+      "name": "Pinecone Vector Store1",
+      "credentials": {
+        "pineconeApi": {
+          "id": "TjQEKsi7Anfoclog",
+          "name": "PineconeApi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-26T18:33:36.861Z",
+      "updatedAt": "2025-08-26T18:33:36.861Z",
+      "role": "workflow:owner",
+      "workflowId": "uxCDrMbey1SOXMLF",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-26T19:19:55.000Z",
+  "versionId": "d1ab08d9-ff4b-4714-a926-cd8aaae40987"
+}
