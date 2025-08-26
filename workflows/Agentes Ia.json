@@ -66,6 +66,17 @@
           }
         ]
       ]
+    },
+    "Get the astronomy picture of the day in NASA": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-08-20T17:35:16.135Z",
@@ -314,6 +325,19 @@
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.nasaTool",
+      "typeVersion": 1,
+      "position": [
+        688,
+        352
+      ],
+      "id": "82fd799f-2b8d-4de2-abf7-4e650e0f4255",
+      "name": "Get the astronomy picture of the day in NASA"
     }
   ],
   "pinData": {},
@@ -332,6 +356,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-21T14:13:38.000Z",
-  "versionId": "a725b0cf-ec4b-419b-8c25-9453ab6a046d"
+  "updatedAt": "2025-08-26T19:34:52.000Z",
+  "versionId": "95ed9111-d0c7-4d55-b4d2-72332c6dd5f7"
 }
