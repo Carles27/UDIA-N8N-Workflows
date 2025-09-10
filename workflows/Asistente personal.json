@@ -1,0 +1,73 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-10T18:25:54.817Z",
+  "id": "LfVW1ohLrQLyPXnq",
+  "isArchived": false,
+  "meta": null,
+  "name": "Asistente personal",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "assistant",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "edcf917d-98e5-4a1c-b5fc-1a814e8fbf75",
+      "name": "Webhook",
+      "webhookId": "45c2eda0-f0aa-4da0-b8c9-aeb7fee6aab2"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"mensaje\": \"Recibido\", \"datos\": {{$json}} }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "dd8b5052-37c6-4ca8-9d24-4f676c19e508",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-10T18:25:54.821Z",
+      "updatedAt": "2025-09-10T18:25:54.821Z",
+      "role": "workflow:owner",
+      "workflowId": "LfVW1ohLrQLyPXnq",
+      "projectId": "NlZSbCiwuoH09JfL"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-10T18:30:44.000Z",
+  "versionId": "76c603ca-da51-4293-b8be-ddb8a16e7676"
+}
